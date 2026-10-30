@@ -241,13 +241,21 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            padding: 8px 12px;
+            gap: 6px;
+            padding: 7px 12px;
             border-radius: 6px;
             background: rgba(255, 255, 255, 0.06);
             border: 1px solid var(--line);
             color: #fff;
             font-size: 13px;
+            font-weight: 600;
             cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .menu-toggle:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: var(--line-hover);
         }
 
         @media (min-width: 860px) {
@@ -259,29 +267,86 @@
             }
         }
 
+        /* Mobile Header - uncrowd header on small screens */
+        @media (max-width: 859px) {
+            .header-inner {
+                height: 64px;
+            }
+            .brand-logo {
+                height: 26px;
+            }
+            .brand-wrap {
+                gap: 8px;
+            }
+            .brand-badge {
+                font-size: 10px;
+                padding: 2px 7px;
+            }
+            /* Hide the desktop button from top header on mobile */
+            .btn-launch-nav {
+                display: none;
+            }
+            .announcement-bar {
+                font-size: 12px;
+                padding: 7px 12px;
+            }
+        }
+
         /* Mobile drawer */
         .mobile-nav-panel {
             display: none;
             position: absolute;
-            top: 76px;
+            top: 100%;
             left: 0;
             width: 100%;
-            background: #100720;
+            background: rgba(14, 7, 26, 0.98);
+            backdrop-filter: blur(16px);
             border-bottom: 1px solid var(--line);
-            padding: 24px;
+            padding: 16px 20px 22px;
             flex-direction: column;
-            gap: 16px;
+            gap: 8px;
+            box-shadow: 0 16px 36px rgba(0, 0, 0, 0.65);
         }
 
         .mobile-nav-panel.open {
             display: flex;
         }
 
-        .mobile-nav-panel a {
-            font-size: 16px;
+        .mobile-cta-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 20px;
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            background: var(--purple);
+            color: #fff;
+            border: 1px solid rgba(165, 23, 186, 0.5);
+            box-shadow: 0 0 16px rgba(95, 23, 130, 0.4);
+            margin-bottom: 6px;
+        }
+
+        .mobile-cta-btn:hover {
+            background: var(--purple-hover);
+        }
+
+        .mobile-nav-panel a.mobile-link {
+            font-size: 15px;
             font-weight: 500;
             color: var(--text-main);
-            padding-block: 6px;
+            padding: 10px 4px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .mobile-nav-panel a.mobile-link:last-of-type {
+            border-bottom: none;
         }
 
         /* Hero */
@@ -957,6 +1022,71 @@
                 justify-content: space-between;
             }
         }
+
+        /* General mobile responsiveness */
+        @media (max-width: 639px) {
+            .container {
+                padding-inline: 18px;
+            }
+            .hero-section {
+                padding-top: 44px;
+                padding-bottom: 52px;
+            }
+            .eyebrow {
+                font-size: 10px;
+                padding: 5px 12px;
+                letter-spacing: 0.12em;
+            }
+            .hero-desc {
+                font-size: 15px;
+                margin-bottom: 30px;
+            }
+            .hero-buttons {
+                flex-direction: column;
+                gap: 12px;
+                width: 100%;
+                margin-bottom: 40px;
+            }
+            .hero-buttons .btn-primary,
+            .hero-buttons .btn-secondary {
+                width: 100%;
+                justify-content: center;
+            }
+            .stat-grid {
+                gap: 16px 12px;
+                padding-top: 28px;
+            }
+            .stat-value {
+                font-size: 20px;
+            }
+            .showcase-content {
+                padding: 24px 18px;
+            }
+            .showcase-terminal {
+                padding: 24px 18px;
+            }
+            .countdown-digits {
+                font-size: 2.6rem;
+            }
+            .catalog-section,
+            .featured-section,
+            .philosophy-section {
+                padding-block: 54px;
+            }
+            .filter-tabs {
+                width: 100%;
+                display: flex;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+            .filter-btn {
+                flex: 1 0 auto;
+                text-align: center;
+                white-space: nowrap;
+                font-size: 12px;
+                padding: 8px 12px;
+            }
+        }
     </style>
 </head>
 <body class="grid-pattern">
@@ -968,7 +1098,7 @@
     <aside class="announcement-bar">
         <div class="container" style="display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap;">
             <span style="font-weight: 700; color: #fff;">NEW RELEASE:</span>
-            <span>Operation: CrossTalk is live and ready for two players!</span>
+            <span>Operation: CrossTalk is live!</span>
             <a href="/operation-crosstalk/">Play in browser ↗</a>
         </div>
     </aside>
@@ -1006,10 +1136,14 @@
 
         <!-- Mobile Navigation Drawer -->
         <nav class="mobile-nav-panel" id="mobileNav" aria-label="Mobile navigation">
-            <a href="#featured" class="mobile-link">Featured Game</a>
-            <a href="#games" class="mobile-link">All Games & Catalog</a>
-            <a href="#philosophy" class="mobile-link">About Twilight Play</a>
-            <a href="https://twilight.ng" target="_blank" rel="noopener noreferrer">Twilight Agency Site ↗</a>
+            <a href="/operation-crosstalk/" class="mobile-cta-btn">
+                <span>Play Crosstalk Now</span>
+                <span style="font-size: 14px;">🎮</span>
+            </a>
+            <a href="#featured" class="mobile-link"><span>Featured Game</span><span>↓</span></a>
+            <a href="#games" class="mobile-link"><span>All Games &amp; Catalog</span><span>↓</span></a>
+            <a href="#philosophy" class="mobile-link"><span>About Twilight Play</span><span>↓</span></a>
+            <a href="https://twilight.ng" target="_blank" rel="noopener noreferrer" class="mobile-link"><span>Twilight Agency Site</span><span>↗</span></a>
         </nav>
     </header>
 
