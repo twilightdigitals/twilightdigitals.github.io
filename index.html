@@ -96,105 +96,18 @@
             left: 50%;
             transform: translateX(-50%);
             width: 100%;
-            max-width: 1400px;
-            height: 720px;
-            background: radial-gradient(circle at 50% 12%, rgba(95, 23, 130, 0.42) 0%, rgba(165, 23, 186, 0.16) 42%, rgba(8, 5, 19, 0) 78%);
+            max-width: 1200px;
+            height: 600px;
+            background: radial-gradient(ellipse at 50% 0%, rgba(95, 23, 130, 0.28) 0%, rgba(165, 23, 186, 0.08) 45%, transparent 75%);
             pointer-events: none;
             z-index: 0;
-        }
-
-        /* Top Scroll Progress Bar */
-        .scroll-progress-bar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 3px;
-            width: 0%;
-            background: linear-gradient(90deg, var(--purple), var(--violet) 50%, var(--cyan) 100%);
-            box-shadow: 0 0 12px rgba(0, 245, 212, 0.7);
-            z-index: 100;
-            transition: width 0.1s ease-out;
-            pointer-events: none;
-        }
-
-        /* Ambient Matte Noise Texture */
-        .noise-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.035'/%3E%3C/svg%3E");
-            pointer-events: none;
-            z-index: 1;
-            opacity: 0.6;
-        }
-
-        /* Enhanced Dynamic Aurora Lighting */
-        .aurora-mesh {
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100%;
-            max-width: 1400px;
-            height: 750px;
-            overflow: hidden;
-            pointer-events: none;
-            z-index: 0;
-            opacity: 0.85;
-            mask-image: radial-gradient(ellipse at 50% 25%, black 40%, transparent 80%);
-            -webkit-mask-image: radial-gradient(ellipse at 50% 25%, black 40%, transparent 80%);
-        }
-
-        .aurora-blob {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.45;
-            animation: aurora-float 14s infinite alternate ease-in-out;
-        }
-
-        .blob-1 {
-            width: 520px;
-            height: 420px;
-            top: -60px;
-            left: 20%;
-            background: radial-gradient(circle, var(--purple) 0%, rgba(95, 23, 130, 0) 70%);
-            animation-duration: 12s;
-        }
-
-        .blob-2 {
-            width: 500px;
-            height: 400px;
-            top: 40px;
-            right: 15%;
-            background: radial-gradient(circle, var(--violet) 0%, rgba(165, 23, 186, 0) 70%);
-            animation-duration: 16s;
-            animation-delay: -4s;
-        }
-
-        .blob-3 {
-            width: 400px;
-            height: 320px;
-            top: 140px;
-            left: 40%;
-            background: radial-gradient(circle, rgba(0, 245, 212, 0.28) 0%, rgba(0, 245, 212, 0) 70%);
-            animation-duration: 18s;
-            animation-delay: -8s;
-        }
-
-        @keyframes aurora-float {
-            0% { transform: translate(0, 0) scale(1); }
-            50% { transform: translate(25px, -30px) scale(1.08); }
-            100% { transform: translate(-20px, 20px) scale(0.95); }
         }
 
         .grid-pattern {
-            background-size: 40px 40px;
+            background-size: 48px 48px;
             background-image: 
-                linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+                linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
         }
 
         .container {
@@ -571,64 +484,36 @@
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
         }
 
-        /* Scroll Reveal & SaaS Dynamics */
+        /* Scroll Reveal System */
         .reveal {
             opacity: 0;
-            transform: translateY(28px);
-            filter: blur(4px);
-            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-                        transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-                        filter 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-            will-change: opacity, transform, filter;
+            transform: translateY(20px);
+            transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform;
         }
 
         .reveal.revealed {
             opacity: 1;
             transform: translateY(0);
-            filter: blur(0);
         }
 
         .reveal-stagger > * {
             opacity: 0;
-            transform: translateY(24px);
-            filter: blur(3px);
-            transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
-                        transform 0.75s cubic-bezier(0.16, 1, 0.3, 1),
-                        filter 0.75s cubic-bezier(0.16, 1, 0.3, 1);
-            will-change: opacity, transform, filter;
+            transform: translateY(16px);
+            transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform;
         }
 
-        .reveal-stagger.revealed > *:nth-child(1) { transition-delay: 0.06s; }
-        .reveal-stagger.revealed > *:nth-child(2) { transition-delay: 0.14s; }
-        .reveal-stagger.revealed > *:nth-child(3) { transition-delay: 0.22s; }
-        .reveal-stagger.revealed > *:nth-child(4) { transition-delay: 0.30s; }
+        .reveal-stagger.revealed > *:nth-child(1) { transition-delay: 0.05s; }
+        .reveal-stagger.revealed > *:nth-child(2) { transition-delay: 0.10s; }
+        .reveal-stagger.revealed > *:nth-child(3) { transition-delay: 0.15s; }
+        .reveal-stagger.revealed > *:nth-child(4) { transition-delay: 0.20s; }
 
         .reveal-stagger.revealed > * {
             opacity: 1;
             transform: translateY(0);
-            filter: blur(0);
-        }
-
-        /* Interactive Spotlight Effect */
-        [data-spotlight] {
-            position: relative;
-            isolation: isolate;
-        }
-
-        [data-spotlight]::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: inherit;
-            background: radial-gradient(550px circle at var(--mouse-x, -500px) var(--mouse-y, -500px), rgba(165, 23, 186, 0.14), transparent 60%);
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        [data-spotlight]:hover::before {
-            opacity: 1;
         }
 
         /* Stat highlights bar */
@@ -876,8 +761,6 @@
             flex-direction: column;
             justify-content: space-between;
             position: relative;
-            background-image: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.3) 50%);
-            background-size: 100% 4px;
         }
 
         @media (min-width: 992px) {
@@ -893,75 +776,18 @@
             align-items: center;
             justify-content: space-between;
             padding-bottom: 16px;
-            margin-bottom: 18px;
+            margin-bottom: 20px;
             border-bottom: 1px solid var(--line);
             font-size: 12px;
         }
 
-        /* Oscilloscope Waveform Bar */
-        .terminal-soundtrack-bar {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 9px 14px;
-            background: rgba(0, 0, 0, 0.55);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: var(--radius-sm);
-            margin-bottom: 18px;
-            font-size: 11px;
-        }
-
-        .soundtrack-info {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: #d4d4d8;
-        }
-
-        .audio-wave-icon {
-            display: inline-flex;
-            align-items: flex-end;
-            gap: 2.5px;
-            height: 14px;
-        }
-
-        .audio-wave-icon .bar {
-            width: 2.5px;
-            background: var(--cyan);
-            border-radius: 1px;
-            animation: wave-bar 1.2s ease-in-out infinite alternate;
-        }
-
-        .audio-wave-icon .bar-1 { height: 35%; animation-delay: 0.1s; }
-        .audio-wave-icon .bar-2 { height: 95%; animation-delay: 0.35s; }
-        .audio-wave-icon .bar-3 { height: 60%; animation-delay: 0.2s; }
-        .audio-wave-icon .bar-4 { height: 100%; animation-delay: 0.45s; }
-
-        @keyframes wave-bar {
-            0% { height: 25%; opacity: 0.45; }
-            100% { height: 100%; opacity: 1; }
-        }
-
-        .audio-badge {
-            display: inline-flex;
-            padding: 2px 7px;
-            border-radius: 4px;
-            font-size: 9px;
-            font-weight: 700;
-            letter-spacing: 0.08em;
-            background: rgba(0, 245, 212, 0.12);
-            color: var(--cyan);
-            border: 1px solid rgba(0, 245, 212, 0.35);
-        }
-
         .countdown-display {
-            background: rgba(0, 0, 0, 0.65);
-            border: 1px solid rgba(239, 68, 68, 0.3);
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(239, 68, 68, 0.25);
             border-radius: var(--radius-md);
             padding: 24px;
             text-align: center;
-            margin-bottom: 24px;
-            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.8);
+            margin-bottom: 20px;
         }
 
         .countdown-label {
@@ -1336,32 +1162,15 @@
             .reveal-stagger > * {
                 opacity: 1 !important;
                 transform: none !important;
-                filter: none !important;
                 transition: none !important;
-            }
-            .aurora-blob {
-                animation: none !important;
-            }
-            .scroll-progress-bar {
-                display: none !important;
             }
         }
     </style>
 </head>
 <body class="grid-pattern">
 
-    <!-- Top Scroll Progress Bar -->
-    <div class="scroll-progress-bar" id="scrollProgressBar" aria-hidden="true"></div>
-
-    <!-- Ambient Subtle Noise Texture -->
-    <div class="noise-overlay" aria-hidden="true"></div>
-
-    <!-- Ambient Aurora Mesh & Floating Orbs -->
-    <div class="aurora-mesh" aria-hidden="true">
-        <div class="aurora-blob blob-1"></div>
-        <div class="aurora-blob blob-2"></div>
-        <div class="aurora-blob blob-3"></div>
-    </div>
+    <!-- Ambient Glow -->
+    <div class="ambient-glow" aria-hidden="true"></div>
 
     <!-- Top Announcement Bar -->
     <aside class="announcement-bar">
@@ -1447,22 +1256,22 @@
 
                 <!-- Fast Metric Highlights -->
                 <div class="stat-grid reveal-stagger">
-                    <div data-spotlight style="padding: 14px; border-radius: var(--radius-sm);">
+                    <div style="padding: 14px; border-radius: var(--radius-sm);">
                         <p class="stat-label">Platform</p>
                         <p class="stat-value">100% Web</p>
                         <p class="stat-sub">Zero app installation</p>
                     </div>
-                    <div data-spotlight style="padding: 14px; border-radius: var(--radius-sm);">
+                    <div style="padding: 14px; border-radius: var(--radius-sm);">
                         <p class="stat-label">Architecture</p>
                         <p class="stat-value">Realtime Sync</p>
                         <p class="stat-sub">Sub-25ms WebSocket broadcast</p>
                     </div>
-                    <div data-spotlight style="padding: 14px; border-radius: var(--radius-sm);">
+                    <div style="padding: 14px; border-radius: var(--radius-sm);">
                         <p class="stat-label">Access</p>
                         <p class="stat-value">Free & Open</p>
                         <p class="stat-sub">No logins or tracking</p>
                     </div>
-                    <div data-spotlight style="padding: 14px; border-radius: var(--radius-sm);">
+                    <div style="padding: 14px; border-radius: var(--radius-sm);">
                         <p class="stat-label">Catalog</p>
                         <p class="stat-value">Expanding</p>
                         <p class="stat-sub">More games in the lab</p>
@@ -1487,33 +1296,32 @@
                 </div>
 
                 <!-- Showcase Card -->
-                <div class="showcase-card reveal" data-spotlight>
+                <div class="showcase-card reveal">
                     <!-- Left: Mission Briefing -->
                     <div class="showcase-content">
                         <div>
                             <!-- Badges -->
                             <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px;">
                                 <span class="badge badge-red">CO-OP ESCAPE</span>
-                                <span class="badge badge-cyan">2 PLAYERS (2 PHONES)</span>
+                                <span class="badge badge-cyan">2 PLAYERS · 2 PHONES</span>
                                 <span class="badge badge-purple">REALTIME WEBSOCKETS</span>
-                                <span class="badge badge-muted">SOLO PRACTICE MODE</span>
                             </div>
 
                             <!-- Protocol Alert -->
                             <div class="protocol-box">
                                 <p class="protocol-title">⚠️ CRITICAL DIRECTIVE</p>
                                 <p class="protocol-text">
-                                    <strong>Rule #1: NEVER peek at each other's screen!</strong> All intelligence must be communicated verbally out loud across the couch or table.
+                                    <strong>Rule #1: NEVER peek at each other's screen!</strong> All intelligence must be communicated verbally out loud across the room.
                                 </p>
                             </div>
 
                             <p style="color: var(--text-main); font-size: 14px; line-height: 1.6; margin-bottom: 20px;">
-                                One of you holds the ticking bomb console with strikes and unstable modules. The other holds the classified Field Manual with cryptographic matrices and frequencies. Neither player can survive alone.
+                                One player holds the ticking bomb console with strikes and unstable modules. The other holds the classified Field Manual with cryptographic matrices. Neither player can survive alone.
                             </p>
 
                             <!-- Role Cards -->
                             <div class="roles-grid">
-                                <div class="role-card" data-spotlight>
+                                <div class="role-card">
                                     <div class="role-header" style="color: var(--cyan);">
                                         🛠️ The Operative ("The Hands")
                                     </div>
@@ -1521,7 +1329,7 @@
                                         Sees the ticking countdown, strikes, cuts wires, tunes the oscilloscope, and enters memory sequences. Has <strong style="color: var(--cyan);">no rules manual</strong>.
                                     </p>
                                 </div>
-                                <div class="role-card" data-spotlight>
+                                <div class="role-card">
                                     <div class="role-header" style="color: #fca5a5;">
                                         📖 The Analyst ("The Brains")
                                     </div>
@@ -1537,19 +1345,19 @@
                                     Defusal Modules in Version 1.0:
                                 </p>
                                 <div class="modules-grid">
-                                    <div class="module-item" data-spotlight>
+                                    <div class="module-item">
                                         <p class="module-name">01. Wire Loom</p>
                                         <p class="module-meta">Serial logic</p>
                                     </div>
-                                    <div class="module-item" data-spotlight>
+                                    <div class="module-item">
                                         <p class="module-name">02. Glyph Matrix</p>
                                         <p class="module-meta">Espionage runes</p>
                                     </div>
-                                    <div class="module-item" data-spotlight>
+                                    <div class="module-item">
                                         <p class="module-name">03. Oscilloscope</p>
                                         <p class="module-meta">MHz tuning</p>
                                     </div>
-                                    <div class="module-item" data-spotlight>
+                                    <div class="module-item">
                                         <p class="module-name">04. Memory Core</p>
                                         <p class="module-meta">Stage sequence</p>
                                     </div>
@@ -1580,19 +1388,6 @@
                                     STATUS: ARMED
                                 </span>
                                 <span style="color: var(--text-faint);">ROOM: KXTRA</span>
-                            </div>
-
-                            <div class="terminal-soundtrack-bar mono">
-                                <div class="soundtrack-info">
-                                    <span class="audio-wave-icon" aria-hidden="true">
-                                        <span class="bar bar-1"></span>
-                                        <span class="bar bar-2"></span>
-                                        <span class="bar bar-3"></span>
-                                        <span class="bar bar-4"></span>
-                                    </span>
-                                    <span>007 SCORE // PROCEDURAL PIEZO</span>
-                                </div>
-                                <span class="audio-badge">LIVE AUDIO</span>
                             </div>
 
                             <div class="countdown-display">
@@ -1657,7 +1452,7 @@
 
                 <div class="cards-grid reveal-stagger" id="gamesGrid">
                     <!-- Card 1: Operation Crosstalk -->
-                    <div class="game-card" data-category="playable" data-spotlight>
+                    <div class="game-card" data-category="playable">
                         <div>
                             <div style="display: flex; align-items: center; justify-content: space-between;">
                                 <span class="badge badge-cyan">PLAYABLE NOW</span>
@@ -1676,7 +1471,7 @@
                     </div>
 
                     <!-- Card 2: Grid Pulse (In the lab) -->
-                    <div class="game-card" data-category="lab" data-spotlight>
+                    <div class="game-card" data-category="lab">
                         <div>
                             <div style="display: flex; align-items: center; justify-content: space-between;">
                                 <span class="badge badge-purple">IN THE LAB</span>
@@ -1695,7 +1490,7 @@
                     </div>
 
                     <!-- Card 3: Cipher Drift (In the lab) -->
-                    <div class="game-card" data-category="lab" data-spotlight>
+                    <div class="game-card" data-category="lab">
                         <div>
                             <div style="display: flex; align-items: center; justify-content: space-between;">
                                 <span class="badge badge-muted">IN CONCEPT</span>
@@ -1730,7 +1525,7 @@
                 </div>
 
                 <div class="pillar-grid reveal-stagger">
-                    <div class="pillar-card" data-spotlight>
+                    <div class="pillar-card">
                         <div class="pillar-icon" style="background: rgba(0, 245, 212, 0.12); color: var(--cyan);">⚡</div>
                         <h3 class="pillar-title">Zero Downloads, Zero App Stores</h3>
                         <p class="pillar-desc">
@@ -1738,7 +1533,7 @@
                         </p>
                     </div>
 
-                    <div class="pillar-card" data-spotlight>
+                    <div class="pillar-card">
                         <div class="pillar-icon" style="background: rgba(165, 23, 186, 0.15); color: #e599f7;">⚡</div>
                         <h3 class="pillar-title">Sub-25ms Realtime Sync</h3>
                         <p class="pillar-desc">
@@ -1746,7 +1541,7 @@
                         </p>
                     </div>
 
-                    <div class="pillar-card" data-spotlight>
+                    <div class="pillar-card">
                         <div class="pillar-icon" style="background: rgba(239, 68, 68, 0.15); color: #fca5a5;">🤝</div>
                         <h3 class="pillar-title">Real Human Connection</h3>
                         <p class="pillar-desc">
@@ -1823,24 +1618,15 @@
         </div>
     </footer>
 
-    <!-- Interactive Scripts: Scroll Dynamics, Spotlight, Filter Tabs, and Timer Animation -->
+    <!-- Interactive Scripts: Dynamic Header, Filter Tabs, and Timer -->
     <script>
-        // Scroll Progress Bar & Dynamic Header State
-        const progressBar = document.getElementById('scrollProgressBar');
+        // Header Scrolled State
         const siteHeader = document.getElementById('siteHeader');
-
         let isTicking = false;
         window.addEventListener('scroll', () => {
             if (!isTicking) {
                 window.requestAnimationFrame(() => {
                     const scrollTop = window.scrollY || document.documentElement.scrollTop;
-                    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-                    const scrollPercent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-
-                    if (progressBar) {
-                        progressBar.style.width = `${scrollPercent}%`;
-                    }
-
                     if (siteHeader) {
                         if (scrollTop > 20) {
                             siteHeader.classList.add('scrolled');
@@ -1848,7 +1634,6 @@
                             siteHeader.classList.remove('scrolled');
                         }
                     }
-
                     isTicking = false;
                 });
                 isTicking = true;
@@ -1866,31 +1651,14 @@
                     }
                 });
             }, {
-                rootMargin: '0px 0px -50px 0px',
-                threshold: 0.12
+                rootMargin: '0px 0px -40px 0px',
+                threshold: 0.1
             });
 
             revealElements.forEach(el => revealObserver.observe(el));
         } else {
-            // Fallback for older browsers
             revealElements.forEach(el => el.classList.add('revealed'));
         }
-
-        // Interactive Card Spotlight on Mousemove
-        const spotlightElements = document.querySelectorAll('[data-spotlight]');
-        spotlightElements.forEach(card => {
-            card.addEventListener('mousemove', (e) => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                card.style.setProperty('--mouse-x', `${x}px`);
-                card.style.setProperty('--mouse-y', `${y}px`);
-            });
-            card.addEventListener('mouseleave', () => {
-                card.style.setProperty('--mouse-x', `-500px`);
-                card.style.setProperty('--mouse-y', `-500px`);
-            });
-        });
 
         // Mobile Navigation Toggle
         const menuToggle = document.getElementById('menuToggle');
