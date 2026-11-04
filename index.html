@@ -103,6 +103,93 @@
             z-index: 0;
         }
 
+        /* Top Scroll Progress Bar */
+        .scroll-progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            width: 0%;
+            background: linear-gradient(90deg, var(--purple), var(--violet) 50%, var(--cyan) 100%);
+            box-shadow: 0 0 12px rgba(0, 245, 212, 0.7);
+            z-index: 100;
+            transition: width 0.1s ease-out;
+            pointer-events: none;
+        }
+
+        /* Ambient Matte Noise Texture */
+        .noise-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.035'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.6;
+        }
+
+        /* Enhanced Dynamic Aurora Lighting */
+        .aurora-mesh {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 1400px;
+            height: 750px;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.85;
+            mask-image: radial-gradient(ellipse at 50% 25%, black 40%, transparent 80%);
+            -webkit-mask-image: radial-gradient(ellipse at 50% 25%, black 40%, transparent 80%);
+        }
+
+        .aurora-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.45;
+            animation: aurora-float 14s infinite alternate ease-in-out;
+        }
+
+        .blob-1 {
+            width: 520px;
+            height: 420px;
+            top: -60px;
+            left: 20%;
+            background: radial-gradient(circle, var(--purple) 0%, rgba(95, 23, 130, 0) 70%);
+            animation-duration: 12s;
+        }
+
+        .blob-2 {
+            width: 500px;
+            height: 400px;
+            top: 40px;
+            right: 15%;
+            background: radial-gradient(circle, var(--violet) 0%, rgba(165, 23, 186, 0) 70%);
+            animation-duration: 16s;
+            animation-delay: -4s;
+        }
+
+        .blob-3 {
+            width: 400px;
+            height: 320px;
+            top: 140px;
+            left: 40%;
+            background: radial-gradient(circle, rgba(0, 245, 212, 0.28) 0%, rgba(0, 245, 212, 0) 70%);
+            animation-duration: 18s;
+            animation-delay: -8s;
+        }
+
+        @keyframes aurora-float {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(25px, -30px) scale(1.08); }
+            100% { transform: translate(-20px, 20px) scale(0.95); }
+        }
+
         .grid-pattern {
             background-size: 40px 40px;
             background-image: 
@@ -154,7 +241,14 @@
             background: rgba(8, 5, 19, 0.92);
             backdrop-filter: blur(12px);
             border-bottom: 1px solid var(--line);
-            transition: all 0.2s ease;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .site-header.scrolled {
+            background: rgba(8, 5, 19, 0.96);
+            backdrop-filter: blur(20px);
+            border-bottom-color: rgba(255, 255, 255, 0.14);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
         }
 
         .header-inner {
@@ -424,16 +518,34 @@
             border-radius: var(--radius-md);
             font-size: 14px;
             font-weight: 700;
-            background: var(--cyan);
+            background: linear-gradient(135deg, var(--cyan) 0%, #38ffd9 100%);
             color: var(--ink);
             box-shadow: 0 0 28px rgba(0, 245, 212, 0.35);
-            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .btn-primary::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -120%;
+            width: 60%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transform: skewX(-20deg);
+            transition: left 0.7s ease;
+        }
+
+        .btn-primary:hover::after {
+            left: 140%;
         }
 
         .btn-primary:hover {
             background: var(--cyan-hover);
             transform: translateY(-2px);
-            box-shadow: 0 0 38px rgba(0, 245, 212, 0.55);
+            box-shadow: 0 0 40px rgba(0, 245, 212, 0.65);
         }
 
         .btn-secondary {
@@ -447,13 +559,76 @@
             background: rgba(255, 255, 255, 0.05);
             color: var(--text-main);
             border: 1px solid var(--line);
-            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .btn-secondary:hover {
             background: rgba(255, 255, 255, 0.1);
-            border-color: var(--line-hover);
+            border-color: rgba(255, 255, 255, 0.24);
             transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Scroll Reveal & SaaS Dynamics */
+        .reveal {
+            opacity: 0;
+            transform: translateY(28px);
+            filter: blur(4px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                        filter 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform, filter;
+        }
+
+        .reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+            filter: blur(0);
+        }
+
+        .reveal-stagger > * {
+            opacity: 0;
+            transform: translateY(24px);
+            filter: blur(3px);
+            transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+                        filter 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform, filter;
+        }
+
+        .reveal-stagger.revealed > *:nth-child(1) { transition-delay: 0.06s; }
+        .reveal-stagger.revealed > *:nth-child(2) { transition-delay: 0.14s; }
+        .reveal-stagger.revealed > *:nth-child(3) { transition-delay: 0.22s; }
+        .reveal-stagger.revealed > *:nth-child(4) { transition-delay: 0.30s; }
+
+        .reveal-stagger.revealed > * {
+            opacity: 1;
+            transform: translateY(0);
+            filter: blur(0);
+        }
+
+        /* Interactive Spotlight Effect */
+        [data-spotlight] {
+            position: relative;
+            isolation: isolate;
+        }
+
+        [data-spotlight]::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            background: radial-gradient(550px circle at var(--mouse-x, -500px) var(--mouse-y, -500px), rgba(165, 23, 186, 0.14), transparent 60%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        [data-spotlight]:hover::before {
+            opacity: 1;
         }
 
         /* Stat highlights bar */
@@ -718,9 +893,65 @@
             align-items: center;
             justify-content: space-between;
             padding-bottom: 16px;
-            margin-bottom: 24px;
+            margin-bottom: 18px;
             border-bottom: 1px solid var(--line);
             font-size: 12px;
+        }
+
+        /* Oscilloscope Waveform Bar */
+        .terminal-soundtrack-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 9px 14px;
+            background: rgba(0, 0, 0, 0.55);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: var(--radius-sm);
+            margin-bottom: 18px;
+            font-size: 11px;
+        }
+
+        .soundtrack-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #d4d4d8;
+        }
+
+        .audio-wave-icon {
+            display: inline-flex;
+            align-items: flex-end;
+            gap: 2.5px;
+            height: 14px;
+        }
+
+        .audio-wave-icon .bar {
+            width: 2.5px;
+            background: var(--cyan);
+            border-radius: 1px;
+            animation: wave-bar 1.2s ease-in-out infinite alternate;
+        }
+
+        .audio-wave-icon .bar-1 { height: 35%; animation-delay: 0.1s; }
+        .audio-wave-icon .bar-2 { height: 95%; animation-delay: 0.35s; }
+        .audio-wave-icon .bar-3 { height: 60%; animation-delay: 0.2s; }
+        .audio-wave-icon .bar-4 { height: 100%; animation-delay: 0.45s; }
+
+        @keyframes wave-bar {
+            0% { height: 25%; opacity: 0.45; }
+            100% { height: 100%; opacity: 1; }
+        }
+
+        .audio-badge {
+            display: inline-flex;
+            padding: 2px 7px;
+            border-radius: 4px;
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            background: rgba(0, 245, 212, 0.12);
+            color: var(--cyan);
+            border: 1px solid rgba(0, 245, 212, 0.35);
         }
 
         .countdown-display {
@@ -858,14 +1089,17 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            transition: all 0.25s ease;
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                        border-color 0.3s ease,
+                        box-shadow 0.3s ease;
             position: relative;
         }
 
         .game-card:hover {
-            transform: translateY(-4px);
-            border-color: rgba(0, 245, 212, 0.4);
-            box-shadow: 0 14px 30px rgba(0, 0, 0, 0.35);
+            transform: translateY(-6px);
+            border-color: rgba(165, 23, 186, 0.5);
+            box-shadow: 0 20px 40px -10px rgba(95, 23, 130, 0.4),
+                        0 0 25px rgba(165, 23, 186, 0.2);
         }
 
         .game-card-title {
@@ -925,6 +1159,15 @@
             border: 1px solid var(--line);
             border-radius: var(--radius-md);
             padding: 28px;
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                        border-color 0.3s ease,
+                        box-shadow 0.3s ease;
+        }
+
+        .pillar-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(0, 245, 212, 0.35);
+            box-shadow: 0 16px 36px -10px rgba(0, 245, 212, 0.2);
         }
 
         .pillar-icon {
@@ -1087,12 +1330,38 @@
                 padding: 8px 12px;
             }
         }
+        /* Reduced Motion Accessibility Fallback */
+        @media (prefers-reduced-motion: reduce) {
+            .reveal,
+            .reveal-stagger > * {
+                opacity: 1 !important;
+                transform: none !important;
+                filter: none !important;
+                transition: none !important;
+            }
+            .aurora-blob {
+                animation: none !important;
+            }
+            .scroll-progress-bar {
+                display: none !important;
+            }
+        }
     </style>
 </head>
 <body class="grid-pattern">
 
-    <!-- Ambient Glowing Orb -->
-    <div class="ambient-glow" aria-hidden="true"></div>
+    <!-- Top Scroll Progress Bar -->
+    <div class="scroll-progress-bar" id="scrollProgressBar" aria-hidden="true"></div>
+
+    <!-- Ambient Subtle Noise Texture -->
+    <div class="noise-overlay" aria-hidden="true"></div>
+
+    <!-- Ambient Aurora Mesh & Floating Orbs -->
+    <div class="aurora-mesh" aria-hidden="true">
+        <div class="aurora-blob blob-1"></div>
+        <div class="aurora-blob blob-2"></div>
+        <div class="aurora-blob blob-3"></div>
+    </div>
 
     <!-- Top Announcement Bar -->
     <aside class="announcement-bar">
@@ -1104,7 +1373,7 @@
     </aside>
 
     <!-- Site Header -->
-    <header class="site-header">
+    <header class="site-header" id="siteHeader">
         <div class="container header-inner">
             <div class="brand-wrap">
                 <a href="https://twilight.ng" aria-label="Twilight Digital Services Home">
@@ -1151,20 +1420,20 @@
         <!-- Hero Section -->
         <section class="hero-section">
             <div class="container">
-                <div class="eyebrow">
+                <div class="eyebrow reveal">
                     <span>Twilight Digital Services · Experimental Lab</span>
                 </div>
 
-                <h1 class="hero-title">
+                <h1 class="hero-title reveal">
                     Games built to <br>
                     <span class="hero-gradient-text">connect, test & amuse.</span>
                 </h1>
 
-                <p class="hero-desc">
+                <p class="hero-desc reveal">
                     A dedicated playground of lightweight, browser-native multiplayer games, social puzzles, and interactive web experiments designed by Twilight Digital Services. Zero downloads, zero friction.
                 </p>
 
-                <div class="hero-buttons">
+                <div class="hero-buttons reveal">
                     <a href="#featured" class="btn-primary">
                         <span>Explore Featured Game</span>
                         <span>↓</span>
@@ -1177,23 +1446,23 @@
                 </div>
 
                 <!-- Fast Metric Highlights -->
-                <div class="stat-grid">
-                    <div>
+                <div class="stat-grid reveal-stagger">
+                    <div data-spotlight style="padding: 14px; border-radius: var(--radius-sm);">
                         <p class="stat-label">Platform</p>
                         <p class="stat-value">100% Web</p>
                         <p class="stat-sub">Zero app installation</p>
                     </div>
-                    <div>
+                    <div data-spotlight style="padding: 14px; border-radius: var(--radius-sm);">
                         <p class="stat-label">Architecture</p>
                         <p class="stat-value">Realtime Sync</p>
                         <p class="stat-sub">Sub-25ms WebSocket broadcast</p>
                     </div>
-                    <div>
+                    <div data-spotlight style="padding: 14px; border-radius: var(--radius-sm);">
                         <p class="stat-label">Access</p>
                         <p class="stat-value">Free & Open</p>
                         <p class="stat-sub">No logins or tracking</p>
                     </div>
-                    <div>
+                    <div data-spotlight style="padding: 14px; border-radius: var(--radius-sm);">
                         <p class="stat-label">Catalog</p>
                         <p class="stat-value">Expanding</p>
                         <p class="stat-sub">More games in the lab</p>
@@ -1205,7 +1474,7 @@
         <!-- Featured Premiere Release: Operation: CrossTalk -->
         <section id="featured" class="featured-section">
             <div class="container">
-                <div class="featured-header">
+                <div class="featured-header reveal">
                     <div>
                         <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
                             <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--cyan);">Premiere Release · Live Now</span>
@@ -1218,7 +1487,7 @@
                 </div>
 
                 <!-- Showcase Card -->
-                <div class="showcase-card">
+                <div class="showcase-card reveal" data-spotlight>
                     <!-- Left: Mission Briefing -->
                     <div class="showcase-content">
                         <div>
@@ -1244,7 +1513,7 @@
 
                             <!-- Role Cards -->
                             <div class="roles-grid">
-                                <div class="role-card">
+                                <div class="role-card" data-spotlight>
                                     <div class="role-header" style="color: var(--cyan);">
                                         🛠️ The Operative ("The Hands")
                                     </div>
@@ -1252,7 +1521,7 @@
                                         Sees the ticking countdown, strikes, cuts wires, tunes the oscilloscope, and enters memory sequences. Has <strong style="color: var(--cyan);">no rules manual</strong>.
                                     </p>
                                 </div>
-                                <div class="role-card">
+                                <div class="role-card" data-spotlight>
                                     <div class="role-header" style="color: #fca5a5;">
                                         📖 The Analyst ("The Brains")
                                     </div>
@@ -1268,19 +1537,19 @@
                                     Defusal Modules in Version 1.0:
                                 </p>
                                 <div class="modules-grid">
-                                    <div class="module-item">
+                                    <div class="module-item" data-spotlight>
                                         <p class="module-name">01. Wire Loom</p>
                                         <p class="module-meta">Serial logic</p>
                                     </div>
-                                    <div class="module-item">
+                                    <div class="module-item" data-spotlight>
                                         <p class="module-name">02. Glyph Matrix</p>
                                         <p class="module-meta">Espionage runes</p>
                                     </div>
-                                    <div class="module-item">
+                                    <div class="module-item" data-spotlight>
                                         <p class="module-name">03. Oscilloscope</p>
                                         <p class="module-meta">MHz tuning</p>
                                     </div>
-                                    <div class="module-item">
+                                    <div class="module-item" data-spotlight>
                                         <p class="module-name">04. Memory Core</p>
                                         <p class="module-meta">Stage sequence</p>
                                     </div>
@@ -1310,7 +1579,20 @@
                                     <span style="width: 8px; height: 8px; border-radius: 50%; background: #ef4444; box-shadow: 0 0 8px #ef4444;"></span>
                                     STATUS: ARMED
                                 </span>
-                                <span style="color: var(--text-faint);">DEVICE // PROTOCOL-7</span>
+                                <span style="color: var(--text-faint);">ROOM: KXTRA</span>
+                            </div>
+
+                            <div class="terminal-soundtrack-bar mono">
+                                <div class="soundtrack-info">
+                                    <span class="audio-wave-icon" aria-hidden="true">
+                                        <span class="bar bar-1"></span>
+                                        <span class="bar bar-2"></span>
+                                        <span class="bar bar-3"></span>
+                                        <span class="bar bar-4"></span>
+                                    </span>
+                                    <span>007 SCORE // PROCEDURAL PIEZO</span>
+                                </div>
+                                <span class="audio-badge">LIVE AUDIO</span>
                             </div>
 
                             <div class="countdown-display">
@@ -1354,7 +1636,7 @@
         <!-- Games Catalog & In the Lab -->
         <section id="games" class="catalog-section">
             <div class="container">
-                <div class="catalog-filter-bar">
+                <div class="catalog-filter-bar reveal">
                     <div>
                         <p style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; color: var(--cyan); margin-bottom: 8px;">
                             The Twilight Collection
@@ -1373,9 +1655,9 @@
                     </div>
                 </div>
 
-                <div class="cards-grid" id="gamesGrid">
+                <div class="cards-grid reveal-stagger" id="gamesGrid">
                     <!-- Card 1: Operation Crosstalk -->
-                    <div class="game-card" data-category="playable">
+                    <div class="game-card" data-category="playable" data-spotlight>
                         <div>
                             <div style="display: flex; align-items: center; justify-content: space-between;">
                                 <span class="badge badge-cyan">PLAYABLE NOW</span>
@@ -1394,7 +1676,7 @@
                     </div>
 
                     <!-- Card 2: Grid Pulse (In the lab) -->
-                    <div class="game-card" data-category="lab">
+                    <div class="game-card" data-category="lab" data-spotlight>
                         <div>
                             <div style="display: flex; align-items: center; justify-content: space-between;">
                                 <span class="badge badge-purple">IN THE LAB</span>
@@ -1413,7 +1695,7 @@
                     </div>
 
                     <!-- Card 3: Cipher Drift (In the lab) -->
-                    <div class="game-card" data-category="lab">
+                    <div class="game-card" data-category="lab" data-spotlight>
                         <div>
                             <div style="display: flex; align-items: center; justify-content: space-between;">
                                 <span class="badge badge-muted">IN CONCEPT</span>
@@ -1437,7 +1719,7 @@
         <!-- Philosophy / Why Web Gaming -->
         <section id="philosophy" class="philosophy-section">
             <div class="container">
-                <div style="text-align: center; max-width: 680px; margin-inline: auto;">
+                <div class="reveal" style="text-align: center; max-width: 680px; margin-inline: auto;">
                     <p style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; color: var(--cyan); margin-bottom: 8px;">
                         Our Philosophy
                     </p>
@@ -1447,8 +1729,8 @@
                     </p>
                 </div>
 
-                <div class="pillar-grid">
-                    <div class="pillar-card">
+                <div class="pillar-grid reveal-stagger">
+                    <div class="pillar-card" data-spotlight>
                         <div class="pillar-icon" style="background: rgba(0, 245, 212, 0.12); color: var(--cyan);">⚡</div>
                         <h3 class="pillar-title">Zero Downloads, Zero App Stores</h3>
                         <p class="pillar-desc">
@@ -1456,7 +1738,7 @@
                         </p>
                     </div>
 
-                    <div class="pillar-card">
+                    <div class="pillar-card" data-spotlight>
                         <div class="pillar-icon" style="background: rgba(165, 23, 186, 0.15); color: #e599f7;">⚡</div>
                         <h3 class="pillar-title">Sub-25ms Realtime Sync</h3>
                         <p class="pillar-desc">
@@ -1464,7 +1746,7 @@
                         </p>
                     </div>
 
-                    <div class="pillar-card">
+                    <div class="pillar-card" data-spotlight>
                         <div class="pillar-icon" style="background: rgba(239, 68, 68, 0.15); color: #fca5a5;">🤝</div>
                         <h3 class="pillar-title">Real Human Connection</h3>
                         <p class="pillar-desc">
@@ -1479,7 +1761,7 @@
     <!-- Footer matching twilight.ng -->
     <footer class="site-footer">
         <div class="container">
-            <div class="footer-grid">
+            <div class="footer-grid reveal-stagger">
                 <!-- Col 1: Brand -->
                 <div>
                     <a href="https://twilight.ng" style="display: inline-block; margin-bottom: 14px;">
@@ -1541,8 +1823,75 @@
         </div>
     </footer>
 
-    <!-- Interactive Scripts: Mobile Nav Drawer, Filter Tabs, and Timer Animation -->
+    <!-- Interactive Scripts: Scroll Dynamics, Spotlight, Filter Tabs, and Timer Animation -->
     <script>
+        // Scroll Progress Bar & Dynamic Header State
+        const progressBar = document.getElementById('scrollProgressBar');
+        const siteHeader = document.getElementById('siteHeader');
+
+        let isTicking = false;
+        window.addEventListener('scroll', () => {
+            if (!isTicking) {
+                window.requestAnimationFrame(() => {
+                    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+                    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                    const scrollPercent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+
+                    if (progressBar) {
+                        progressBar.style.width = `${scrollPercent}%`;
+                    }
+
+                    if (siteHeader) {
+                        if (scrollTop > 20) {
+                            siteHeader.classList.add('scrolled');
+                        } else {
+                            siteHeader.classList.remove('scrolled');
+                        }
+                    }
+
+                    isTicking = false;
+                });
+                isTicking = true;
+            }
+        }, { passive: true });
+
+        // Scroll Reveal System (IntersectionObserver)
+        const revealElements = document.querySelectorAll('.reveal, .reveal-stagger');
+        if ('IntersectionObserver' in window) {
+            const revealObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('revealed');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                rootMargin: '0px 0px -50px 0px',
+                threshold: 0.12
+            });
+
+            revealElements.forEach(el => revealObserver.observe(el));
+        } else {
+            // Fallback for older browsers
+            revealElements.forEach(el => el.classList.add('revealed'));
+        }
+
+        // Interactive Card Spotlight on Mousemove
+        const spotlightElements = document.querySelectorAll('[data-spotlight]');
+        spotlightElements.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.setProperty('--mouse-x', `-500px`);
+                card.style.setProperty('--mouse-y', `-500px`);
+            });
+        });
+
         // Mobile Navigation Toggle
         const menuToggle = document.getElementById('menuToggle');
         const mobileNav = document.getElementById('mobileNav');
@@ -1564,23 +1913,39 @@
             });
         }
 
-        // Catalog Filter Tabs
+        // Smooth Catalog Filter Tabs
         const filterButtons = document.querySelectorAll('.filter-btn');
         const gameCards = document.querySelectorAll('.game-card');
 
         filterButtons.forEach(btn => {
             btn.addEventListener('click', () => {
+                if (btn.classList.contains('active')) return;
+
                 filterButtons.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
 
                 const filter = btn.getAttribute('data-filter');
+
                 gameCards.forEach(card => {
                     const category = card.getAttribute('data-category');
-                    if (filter === 'all' || category === filter) {
-                        card.style.display = 'flex';
-                    } else {
-                        card.style.display = 'none';
-                    }
+                    const shouldShow = (filter === 'all' || category === filter);
+
+                    // Smooth transition
+                    card.style.transition = 'opacity 0.25s ease, transform 0.25s ease';
+                    card.style.opacity = '0';
+                    card.style.transform = 'scale(0.96)';
+
+                    setTimeout(() => {
+                        if (shouldShow) {
+                            card.style.display = 'flex';
+                            requestAnimationFrame(() => {
+                                card.style.opacity = '1';
+                                card.style.transform = 'scale(1)';
+                            });
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    }, 220);
                 });
             });
         });
